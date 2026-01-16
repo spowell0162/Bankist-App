@@ -74,7 +74,11 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
+
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `€${balance}`;
+}
 
 const createUsernames = function (accounts) {
   accounts.forEach(function (account) {
@@ -82,12 +86,11 @@ const createUsernames = function (accounts) {
   });
 };
 
+displayMovements(account1.movements);
+
 createUsernames(accounts);
-console.log(accounts);
 
-
-
-
+calcDisplayBalance(account2.movements);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -100,7 +103,7 @@ console.log(accounts);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -122,8 +125,6 @@ console.log(accounts);
 // const arr = [23, 11, 64];
 // console.log(arr.at(-1));
 // console.log('jonas'.at(0));
-
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // for (const [i, movement] of movements.entries()) {
 //   console.log(movement > 0 ? `${i + 1}: You deposited ${movement}` : `${i + 1}: You withdrew ${Math.abs(movement)}`);
@@ -173,8 +174,6 @@ console.log(accounts);
 
 // map Method
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
 // const eurToUsd = 1.1;
 
 // const movementsUSD = movements.map(mov => mov * eurToUsd);
@@ -185,13 +184,20 @@ console.log(accounts);
 
 // console.log(movementsDescriptions);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const deposits = movements.filter(function (mov) {
+//   return mov > 0;
+// });
 
-const deposits = movements.filter(function (mov) {
-  return mov > 0;
-});
+// const withdrawals = movements.filter(mov => mov < 0);
 
-const withdrawals = movements.filter(mov => mov < 0);
+// console.log(deposits);
+// console.log(withdrawals);
 
-console.log(deposits);
-console.log(withdrawals);
+// const balance = movements.reduce((accumulator, current) => accumulator + current, 0);
+
+// console.log(balance);
+
+// Max value
+
+const max = movements.reduce((acc, curr) => curr > acc ? curr : acc, movements[0]);
+console.log(max);
