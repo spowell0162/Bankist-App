@@ -199,5 +199,20 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // Max value
 
-const max = movements.reduce((acc, curr) => curr > acc ? curr : acc, movements[0]);
-console.log(max);
+// const max = movements.reduce((acc, curr) => curr > acc ? curr : acc, movements[0]);
+// console.log(max);
+
+// Coding Challenge #2
+
+const calcAverageHumanAge = function (arr) {
+  const humanAge = arr.map(age => age <= 2 ? age * 2 : 16 + age * 4);
+  console.log(humanAge);
+  const adultDogs = humanAge.filter(age => age >= 18);
+  console.log(adultDogs);
+  // const averageAge = adultDogs.reduce((total, current) => total + current, 0) / adultDogs.length;
+  const averageAge = adultDogs.reduce((total, current, index, array) => total + current / array.length, 0);
+  console.log(averageAge);
+};
+
+calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
