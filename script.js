@@ -252,13 +252,27 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // Challenge 3
 
-const calcAverageHumanAge = function (ageArray) {
-  const humanAge = ageArray
-    .map(age => age <= 2 ? age * 2 : 16 + age * 4)
-    .filter(age => age >= 18)
-    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
-  return humanAge;
-};
+// const calcAverageHumanAge = function (ageArray) {
+//   const humanAge = ageArray
+//     .map(age => age <= 2 ? age * 2 : 16 + age * 4)
+//     .filter(age => age >= 18)
+//     .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+//   return humanAge;
+// };
 
-console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
-console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+// console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+// console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal);
+
+console.log(accounts);
+
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
+
+let accountFor;
+for (const acc of accounts) {
+  if (acc.owner === 'Jessica Davis') accountFor = acc;
+}
+console.log(accountFor);
