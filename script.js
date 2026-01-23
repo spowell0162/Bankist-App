@@ -80,26 +80,24 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance}€`;
 }
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (account) {
+  const incomes = account.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outcomes = movements
+  const outcomes = account.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(outcomes)}€`;
 
-  const interest = movements
+  const interest = account.movements
     .filter(mov => mov > 0)
-    .map(mov => mov * 0.012)
+    .map(mov => mov * account.interestRate)
     .filter(int => int >= 1)
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`
 }
-
-calcDisplaySummary(account1.movements)
 
 const createUsernames = function (accounts) {
   accounts.forEach(function (account) {
@@ -107,11 +105,29 @@ const createUsernames = function (accounts) {
   });
 };
 
-displayMovements(account1.movements);
-
 createUsernames(accounts);
 
-calcDisplayBalance(account2.movements);
+// Event Handlers
+let currentAccount;
+
+btnLogin.addEventListener('click', function (event) {
+  event.preventDefault();
+  currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // display UI and message
+    labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+    containerApp.style.opacity = 1;
+    // clear input fields
+    inputLoginPin.value = inputLoginUsername.value = '';
+    inputLoginPin.blur();
+    // display movements
+    displayMovements(currentAccount.movements);
+    // dsplay balance
+    calcDisplayBalance(currentAccount.movements)
+    // display summary
+    calcDisplaySummary(currentAccount);
+  };
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -124,7 +140,7 @@ calcDisplayBalance(account2.movements);
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -263,16 +279,16 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 // console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
 
-const firstWithdrawal = movements.find(mov => mov < 0);
-console.log(firstWithdrawal);
+// const firstWithdrawal = movements.find(mov => mov < 0);
+// console.log(firstWithdrawal);
 
-console.log(accounts);
+// console.log(accounts);
 
-const account = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(account);
+// const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+// console.log(account);
 
-let accountFor;
-for (const acc of accounts) {
-  if (acc.owner === 'Jessica Davis') accountFor = acc;
-}
-console.log(accountFor);
+// let accountFor;
+// for (const acc of accounts) {
+//   if (acc.owner === 'Jessica Davis') accountFor = acc;
+// }
+// console.log(accountFor);
