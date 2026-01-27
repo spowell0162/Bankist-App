@@ -172,7 +172,7 @@ btnClose.addEventListener('click', function (e) {
 //   ['GBP', 'Pound sterling'],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -324,3 +324,11 @@ btnClose.addEventListener('click', function (e) {
 //   if (acc.owner === 'Jessica Davis') accountFor = acc;
 // }
 // console.log(accountFor);
+
+console.log(movements);
+const lastWithdrawal = movements.findLast(mov => mov < 0);
+console.log(lastWithdrawal);
+
+const lastLargeMovementIndex = movements.findLastIndex(mov => Math.abs(mov) > 1000);
+
+console.log(`Your latest large movement was ${movements.length - lastLargeMovementIndex} movements ago`);
