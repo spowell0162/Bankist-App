@@ -149,6 +149,18 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+    // Update UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+})
+
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
@@ -325,10 +337,23 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // }
 // console.log(accountFor);
 
-console.log(movements);
-const lastWithdrawal = movements.findLast(mov => mov < 0);
-console.log(lastWithdrawal);
+// console.log(movements);
+// const lastWithdrawal = movements.findLast(mov => mov < 0);
+// console.log(lastWithdrawal);
 
-const lastLargeMovementIndex = movements.findLastIndex(mov => Math.abs(mov) > 1000);
+// const lastLargeMovementIndex = movements.findLastIndex(mov => Math.abs(mov) > 1000);
 
-console.log(`Your latest large movement was ${movements.length - lastLargeMovementIndex} movements ago`);
+// console.log(`Your latest large movement was ${movements.length - lastLargeMovementIndex} movements ago`);
+
+console.log(movements.includes(-130));
+
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+console.log(movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
+
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
